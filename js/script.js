@@ -1,36 +1,25 @@
 // main game function
-function game() {
-  // declare a variable to hold the overall results
-  let wins = 0;
-  let losses = 0;
-  // tell the player what is going on
-  console.log("Lets play rock, paper, scissors, best of 5");
-  // loop through 5 games
-  for (let i = 0; i < 5; i++) {
-    // prompt the user
-    const playerSelection = window.prompt(
-      "Please enter rock, paper or scissors: ",
-      ""
-    );
-    const computerSelection = computerPlay();
-    const result = playRound(playerSelection, computerSelection);
-    console.log(result);
-    // check to see if the player won
-    if (result[4] == "w") {
-      wins++;
-    } else if (result[4] == "l") {
-      losses++;
-    }
-  } // end for loop
-  // print overall results
-  if (wins > losses) {
-    console.log("Good game! You win.");
-  } else if (losses > wins) {
-    console.log("Too bad, you lost. Better luck next time");
-  } else {
-    console.log("Hmm, could have gone worse...");
-  }
-} // end game function
+// function game() {
+
+//     const computerSelection = computerPlay();
+//     const result = playRound(playerSelection, computerSelection);
+//     console.log(result);
+//     // check to see if the player won
+//     if (result[4] == "w") {
+//       wins++;
+//     } else if (result[4] == "l") {
+//       losses++;
+//     }
+//   } // end for loop
+//   // print overall results
+//   if (wins > losses) {
+//     console.log("Good game! You win.");
+//   } else if (losses > wins) {
+//     console.log("Too bad, you lost. Better luck next time");
+//   } else {
+//     console.log("Hmm, could have gone worse...");
+//   }
+// } // end game function
 
 // computer chooses randomly
 function computerPlay() {
@@ -46,8 +35,7 @@ function computerPlay() {
 // compare results and return results of the round
 function playRound(playerSelection, computerSelection) {
   // make sure that the players choice is in lower case
-  safePlayerSelection = playerSelection.toLowerCase();
-
+  let safePlayerSelection = playerSelection;
   // check for a tie
   if (safePlayerSelection == computerSelection) {
     return "Tie, no one wins";
@@ -77,4 +65,17 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-game();
+
+// this is where we start
+const lowerDiv = document.getElementById("outputDiv")
+const resultDiv = document.createElement('p');
+const btnArray = document.getElementsByName("playerSelection");
+for (let i=0; i<btnArray.length; i++){
+  btnArray[i].addEventListener('click', function(e){
+    let roundResult = playRound(e.target.value, computerPlay());
+    resultDiv.textContent = roundResult;
+    lowerDiv.appendChild(resultDiv);
+
+  });
+}
+
